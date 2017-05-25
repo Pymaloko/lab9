@@ -4,17 +4,17 @@ CFLAGS = -Wall -Werror -MP -MMD
 all :
 	make bin/deposit-calc
 
-bin/deposit-calc : build/main.o build/deposit.o
+bin/deposit-calc : build/src/main.o build/src/deposit.o
 	mkdir bin -p
-	gcc build/main.o build/deposit.o -o bin/deposit-calc $(CFLAGS)
+	gcc  build/src/main.o build/src/deposit.o -o bin/deposit-calc $(CFLAGS)
 
-build/main.o : src/main.c src/deposit.h
+build/src/main.o : src/main.c src/deposit.h
 	mkdir build -p
-	gcc -c src/main.c -o build/main.o $(CFLAGS)
+	gcc -c src/main.c -o build/src/main.o $(CFLAGS)
 
-build/deposit.o : src/deposit.c src/deposit.h
+build/src/deposit.o : src/deposit.c src/deposit.h
 	mkdir build -p
-	gcc -c src/deposit.c -o build/deposit.o $(CFLAGS)
+	gcc -c src/deposit.c -o build/src/deposit.o $(CFLAGS)
 
 test :
 	make bin/deposit-calc-test
@@ -30,8 +30,8 @@ build/test/main.o : src/deposit.h test/main.c
 	@gcc -c src/deposit.c -o build/test/deposit.o $(CFLAGS) 
 
 build/test/deposit-test.o : src/deposit.h test/deposit-test.c
-	@echo "Making deposit-test.o"
-	@gcc -c -I thirdparty test/deposit-test.c -o build/test/deposit-test.o $(CFLAGS)
+	echo "Making deposit-test.o"
+	gcc -c -I thirdparty test/deposit-test.c -o build/test/deposit-test.o $(CFLAGS)
 
 build/test/deposit.o : src/deposit.h src/deposit.c
 	@echo "Making deposit.o"
@@ -39,8 +39,8 @@ build/test/deposit.o : src/deposit.h src/deposit.c
 
 clean :
 	@echo "Cleaning files in build directory"
-	@rm -rf build/*.d build/test/*.d 
-	@rm -rf build/*.o build/test/*.o
+	@rm -rf build/src/*.d build/test/*.d 
+	@rm -rf  build/src/*.o build/test/*.o
 	@echo "Cleaning binaries"
 	@rm -f bin/deposit-calc bin/deposit-calc-test
 	@echo "All files have been cleaned."

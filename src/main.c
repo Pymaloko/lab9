@@ -11,7 +11,7 @@ int main()
     if (dataent(t, s) == 0)
         return 0;
     else {
-        printf("sum at the end of: ");
+        printf("result: ");
         printf("%.0f", profit(s, t));
         printf("\n");
     }
